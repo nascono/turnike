@@ -1,0 +1,13 @@
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\bin\Debug\OgrenciYap.exe.config
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\bin\Debug\OgrenciYap.exe
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\bin\Debug\OgrenciYap.pdb
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.csprojAssemblyReference.cache
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.Form1.resources
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.Form2.resources
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.Properties.Resources.resources
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.csproj.GenerateResource.cache
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.csproj.CoreCompileInputs.cache
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.csproj.CopyComplete
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.exe
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.pdb
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.EminMisin.resources

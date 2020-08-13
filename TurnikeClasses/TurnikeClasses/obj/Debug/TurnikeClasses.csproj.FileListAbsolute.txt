@@ -4,3 +4,9 @@ C:\Users\AAAO\source\repos\TurnikeClasses\TurnikeClasses\obj\Debug\TurnikeClasse
 C:\Users\AAAO\source\repos\TurnikeClasses\TurnikeClasses\obj\Debug\TurnikeClasses.csproj.CoreCompileInputs.cache
 C:\Users\AAAO\source\repos\TurnikeClasses\TurnikeClasses\obj\Debug\TurnikeClasses.dll
 C:\Users\AAAO\source\repos\TurnikeClasses\TurnikeClasses\obj\Debug\TurnikeClasses.pdb
+C:\Users\AAAO\Documents\GitHub\turnike\TurnikeClasses\TurnikeClasses\bin\Debug\TurnikeClasses.dll
+C:\Users\AAAO\Documents\GitHub\turnike\TurnikeClasses\TurnikeClasses\bin\Debug\TurnikeClasses.pdb
+C:\Users\AAAO\Documents\GitHub\turnike\TurnikeClasses\TurnikeClasses\obj\Debug\TurnikeClasses.csprojAssemblyReference.cache
+C:\Users\AAAO\Documents\GitHub\turnike\TurnikeClasses\TurnikeClasses\obj\Debug\TurnikeClasses.csproj.CoreCompileInputs.cache
+C:\Users\AAAO\Documents\GitHub\turnike\TurnikeClasses\TurnikeClasses\obj\Debug\TurnikeClasses.dll
+C:\Users\AAAO\Documents\GitHub\turnike\TurnikeClasses\TurnikeClasses\obj\Debug\TurnikeClasses.pdb

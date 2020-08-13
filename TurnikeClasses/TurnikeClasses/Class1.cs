@@ -7,20 +7,23 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace TurnikeClasses
 {
-	[Serializable]
+	[Serializable()]
 	public class Ogrenci
 	{
 		Seri seri = new Seri();
-		public string tam_ad, kart_no, foto;
+		public string tam_ad, kart_no;
+		public Image foto;
 		public int numara, mezuniyet_tarihi;
 		public byte[] card_number_bytes = new byte[8];
 		public byte[] card_number_with_footer_and_header = new byte[18];
 		public bool izin = false;
 		public string telno = "";
-		public Ogrenci(string tam_ad, int numara, string kart_no, int mezuniyet_tarihi, string foto, bool izin, string telno)
+		public Ogrenci(string tam_ad, int numara, string kart_no, int mezuniyet_tarihi, Image foto, bool izin, string telno)
 		{
 			this.tam_ad = tam_ad;
 			this.numara = numara;
@@ -54,7 +57,7 @@ namespace TurnikeClasses
 		}
 		public void ogrencileri_kaydet(Ogrenci[] ogrenciler)
 		{
-			if (!File.Exists("ogrenciler.ofas")){ File.Create("ogrenciler.ofas").Dispose(); }
+			if (!File.Exists("ogrenciler.ofas")) { File.Create("ogrenciler.ofas").Dispose(); }
 			StreamWriter sw = new StreamWriter("ogrenciler.ofas");
 			sw.WriteLine(Convert.ToBase64String(seri.ObjectToByteArray(ogrenciler)));
 			sw.Flush();
@@ -62,12 +65,12 @@ namespace TurnikeClasses
 			sw.Dispose();
 		}
 
-		
+
 	}
 
 
 
-
+	[Serializable()]
 	public class Logger
 	{
 		Seri seri = new Seri();
@@ -79,7 +82,7 @@ namespace TurnikeClasses
 			string file_full_name = "logs/" + DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year.ToString() + ".log";
 			this.file_full_name = file_full_name;
 			this.file_name = file_name;
-			if (!Directory.Exists("logs")) { Directory.CreateDirectory( "logs"); }
+			if (!Directory.Exists("logs")) { Directory.CreateDirectory("logs"); }
 			if (!File.Exists(file_full_name))
 			{
 				File.Create(file_full_name).Dispose();
@@ -91,7 +94,7 @@ namespace TurnikeClasses
 			}
 
 		}
-		
+
 		public void new_log(Log my_log)
 		{
 			StreamReader sr = new StreamReader(file_full_name);
@@ -142,7 +145,7 @@ namespace TurnikeClasses
 			return (from x in loglar where x.ogrenci == ogrencim && x.olay == olayim select x).ToArray();
 		}
 
-	
+
 	}
 
 
@@ -152,7 +155,7 @@ namespace TurnikeClasses
 
 
 
-	[Serializable]
+	[Serializable()]
 	public class Log
 	{
 		public Ogrenci ogrenci;
@@ -167,7 +170,7 @@ namespace TurnikeClasses
 
 	}
 
-
+	[Serializable()]
 	public class Seri
 	{
 		public byte[] ObjectToByteArray(Object obj)
@@ -194,5 +197,5 @@ namespace TurnikeClasses
 			return obj;
 
 		}
-	} 
+	}
 }
