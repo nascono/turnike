@@ -23,6 +23,7 @@ namespace TurnikeClasses
 		public byte[] card_number_with_footer_and_header = new byte[18];
 		public bool izin = false;
 		public string telno = "";
+		public string konum = "";
 		public Ogrenci(string tam_ad, int numara, string kart_no, int mezuniyet_tarihi, Image foto, bool izin, string telno)
 		{
 			this.tam_ad = tam_ad;
@@ -38,14 +39,31 @@ namespace TurnikeClasses
 			Array.Copy(header, 0, card_number_with_footer_and_header, 0, header.Length);
 			Array.Copy(card_number_bytes, 0, card_number_with_footer_and_header, 7, card_number_bytes.Length);
 			Array.Copy(footter, 0, card_number_with_footer_and_header, 15, footter.Length);
-
+			if (!File.Exists("location.conf"))
+			{
+				File.Create("location.conf").Dispose();
+			}
+			StreamReader sr = new StreamReader("location.conf");
+			konum = sr.ReadToEnd();
+			sr.Close();
+			sr.Dispose();
 		}
-		public Ogrenci() { }
+		public Ogrenci()
+		{
+			if (!File.Exists("location.conf"))
+			{
+				File.Create("location.conf").Dispose();
+			}
+			StreamReader sr = new StreamReader("location.conf");
+			konum = sr.ReadToEnd();
+			sr.Close();
+			sr.Dispose();
+		}
 		public Ogrenci[] ogrencileri_getir()
 		{
-			if (File.Exists("ogrenciler.ofas"))
+			if (File.Exists(konum+ "ogrenciler.ofas"))
 			{
-				StreamReader sr = new StreamReader("ogrenciler.ofas");
+				StreamReader sr = new StreamReader(konum + "ogrenciler.ofas");
 				byte[] arrBytes = Convert.FromBase64String(sr.ReadLine());
 				sr.Close();
 				sr.Dispose();
@@ -57,8 +75,8 @@ namespace TurnikeClasses
 		}
 		public void ogrencileri_kaydet(Ogrenci[] ogrenciler)
 		{
-			if (!File.Exists("ogrenciler.ofas")) { File.Create("ogrenciler.ofas").Dispose(); }
-			StreamWriter sw = new StreamWriter("ogrenciler.ofas");
+			if (!File.Exists(konum+"ogrenciler.ofas")) { File.Create(konum+"ogrenciler.ofas").Dispose(); }
+			StreamWriter sw = new StreamWriter(konum+"ogrenciler.ofas");
 			sw.WriteLine(Convert.ToBase64String(seri.ObjectToByteArray(ogrenciler)));
 			sw.Flush();
 			sw.Close();
