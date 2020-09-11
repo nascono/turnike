@@ -42,9 +42,9 @@ namespace Turnike
 			Image foto = new Bitmap(133,171);
 			Graphics g = Graphics.FromImage(foto);
 			g.FillRectangle(new SolidBrush(Color.Black), 0, 0, foto.Width, foto.Height);
-			if (ogrencim.foto != "")
+			if (ogrencim.foto != null)
 			{
-				foto = Image.FromFile(ogrencim.foto);
+				foto = ogrencim.foto;
 			}
 			
 			// Draw the background.
@@ -84,7 +84,7 @@ namespace Turnike
 
 		private void Button1_Click(object sender, EventArgs e)
 		{
-			listBox1.Items.Add(new object[] { new Ogrenci("Ömer Fatih", 253, "asdfeghj", 2000, "",true,"asd") ,Color.Yellow,""});
+			listBox1.Items.Add(new object[] { new Ogrenci("Ömer Fatih", 253, "asdfeghj", 2000, null,true,"asd") ,Color.Yellow,""});
 		}
 
 		private void Form1_Load(object sender, EventArgs e)
@@ -144,7 +144,7 @@ namespace Turnike
 				else
 				{
 					
-					listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart",0,"",0,"",false,"asd"), Color.Red, "" });
+					listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart",0,"",0,null,false,"asd"), Color.Red, "" });
 				}
 			}
 		}
@@ -183,7 +183,7 @@ namespace Turnike
 				}
 				else
 				{
-					listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart", 0, "", 0, "", false,"asd"), Color.Red, "","asd"});
+					listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart", 0, "", 0, null, false,"asd"), Color.Red, "","asd"});
 				}
 			}
 
