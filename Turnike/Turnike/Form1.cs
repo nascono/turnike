@@ -99,15 +99,15 @@ namespace Turnike
 			srr.Dispose();
 			foreach (string item in giris_portlari_txts)
 			{
-				//	girisportlari.Add(new SerialPort(item, 9600));
-				//	girisportlari[girisportlari.Count - 1].Open();
-				//	girisportlari[girisportlari.Count - 1].DataReceived += giris_geldi;
+					girisportlari.Add(new SerialPort(item, 9600));
+					girisportlari[girisportlari.Count - 1].Open();
+					girisportlari[girisportlari.Count - 1].DataReceived += giris_geldi;
 			}
 			foreach (string item in cikis_portlari_txts)
 			{
-				//	cikisportlari.Add(new SerialPort(item, 9600));
-				//	cikisportlari[cikisportlari.Count - 1].Open();
-				//	cikisportlari[cikisportlari.Count - 1].DataReceived += cikis_geldi;
+					cikisportlari.Add(new SerialPort(item, 9600));
+					cikisportlari[cikisportlari.Count - 1].Open();
+					cikisportlari[cikisportlari.Count - 1].DataReceived += cikis_geldi;
 			}
 			ogenciler = new Ogrenci().ogrencileri_getir();
 
