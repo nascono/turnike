@@ -20,7 +20,7 @@ namespace TurnikeClasses
 		public Image foto;
 		public int numara, mezuniyet_tarihi;
 		public byte[] card_number_bytes = new byte[8];
-		public byte[] card_number_with_footer_and_header = new byte[18];
+		public byte[] card_number_with_footer_and_header = new byte[16];
 		public bool izin = false;
 		public string telno = "";
 		public string konum = "";
@@ -35,7 +35,7 @@ namespace TurnikeClasses
 			this.telno = telno;
 			card_number_bytes = Encoding.UTF8.GetBytes(kart_no);
 			byte[] header = { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
-			byte[] footter = { 0x20, 0x20, 0x20 };
+			byte[] footter = { 0x20 };
 			Array.Copy(header, 0, card_number_with_footer_and_header, 0, header.Length);
 			Array.Copy(card_number_bytes, 0, card_number_with_footer_and_header, 7, card_number_bytes.Length);
 			Array.Copy(footter, 0, card_number_with_footer_and_header, 15, footter.Length);

@@ -11,6 +11,8 @@ using System.IO;
 using System.IO.Ports;
 using System.Runtime.Serialization.Formatters.Binary;
 using TurnikeClasses;
+using System.Threading;
+
 namespace Turnike
 {
 	public partial class Form1 : Form
@@ -106,7 +108,7 @@ namespace Turnike
 			foreach (string item in cikis_portlari_txts)
 			{
 					cikisportlari.Add(new SerialPort(item, 9600));
-					cikisportlari[cikisportlari.Count - 1].Open();
+				cikisportlari[cikisportlari.Count - 1].Open();
 					cikisportlari[cikisportlari.Count - 1].DataReceived += cikis_geldi;
 			}
 			ogenciler = new Ogrenci().ogrencileri_getir();
@@ -116,14 +118,20 @@ namespace Turnike
 			listBox1.Height = this.Height - 100;
 		}
 
+
+		string bir_onceki_giris = "";
 		private void giris_geldi(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
 		{
+			
 			SerialPort sp = sender as SerialPort;
-			byte[] gelen = new byte[sp.BytesToRead];
+			byte[] gelen;
+			gelen = new byte[sp.BytesToRead];
 			sp.Read(gelen, 0, sp.BytesToRead);
-			if (gelen != new byte[] {0x45,0x52,0x52,0x01,0x02,0x0D})
+
+			if (!gelen.SequenceEqual( new byte[] {0x45,0x52,0x52,0x01,0x02,0x0D}) && gelen.Length==16 && ByteArrayToString(gelen)!=bir_onceki_giris)
 			{
-				Ogrenci[] bulunanlar = (from x in ogenciler where x.card_number_with_footer_and_header == gelen select x).ToArray();
+				
+				Ogrenci[] bulunanlar = (from x in ogenciler where x.card_number_with_footer_and_header.SequenceEqual(gelen) select x).ToArray();
 				if (bulunanlar.Length>0)
 				{
 					Ogrenci ogrencim = bulunanlar[0];
@@ -144,18 +152,24 @@ namespace Turnike
 				else
 				{
 					
-					listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart",0,"",0,null,false,"asd"), Color.Red, "" });
+					listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart \n"+ByteArrayToString(ogenciler[0].card_number_with_footer_and_header)+"\n"+ByteArrayToString(gelen)+"\n"+gelen.SequenceEqual(ogenciler[0].card_number_with_footer_and_header).ToString(),0,"",0,null,false,"asd"), Color.Red, "" });
 				}
+				bir_onceki_giris = ByteArrayToString(gelen);
+				bir_onceki_cikis = "";
 			}
+			
+
 		}
+
+		string bir_onceki_cikis = "";
 		private void cikis_geldi(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
 		{
 			SerialPort sp = sender as SerialPort;
 			byte[] gelen = new byte[sp.BytesToRead];
 			sp.Read(gelen, 0, sp.BytesToRead);
-			if (gelen != new byte[] { 0x45, 0x52, 0x52, 0x01, 0x02, 0x0D })
+			if (!gelen.SequenceEqual( new byte[] { 0x45, 0x52, 0x52, 0x01, 0x02, 0x0D }) && gelen.Length==16&&ByteArrayToString(gelen)!=bir_onceki_cikis)
 			{
-				Ogrenci[] bulunanlar = (from x in ogenciler where x.card_number_with_footer_and_header == gelen select x).ToArray();
+				Ogrenci[] bulunanlar = (from x in ogenciler where x.card_number_with_footer_and_header.SequenceEqual(gelen) select x).ToArray();
 				if (bulunanlar.Length > 0)
 				{
 					Ogrenci ogrencim = bulunanlar[0];
@@ -180,15 +194,25 @@ namespace Turnike
 							listBox1.Items.Add(new object[] { ogrencim, Color.Red, "İzin Yok" });
 						}
 					}
+					
 				}
 				else
 				{
 					listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart", 0, "", 0, null, false,"asd"), Color.Red, "","asd"});
 				}
+				bir_onceki_cikis = ByteArrayToString(gelen);
+				bir_onceki_giris = "";
 			}
 
 		}
-
+		void sleep() 
+		{
+			long baslangic = DateTime.Now.Ticks;
+			while (DateTime.Now.Ticks-baslangic<TimeSpan.TicksPerSecond*1)
+			{
+				Application.DoEvents();
+			}
+		}
 		private void Timer1_Tick(object sender, EventArgs e)
 		{
 			byte[] yazilcak = {0x02,0xff,0x96,0x04,0x0b,0x36,0x34,0x03};
@@ -206,6 +230,13 @@ namespace Turnike
 		{
 			//MessageBox.Show(logger.GetExecutingDirectoryName());
 
+		}
+		public static string ByteArrayToString(byte[] ba)
+		{
+			StringBuilder hex = new StringBuilder(ba.Length * 2);
+			foreach (byte b in ba)
+				hex.AppendFormat("{0:x2}", b);
+			return hex.ToString();
 		}
 	}
 }
