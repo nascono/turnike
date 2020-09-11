@@ -34,14 +34,18 @@ namespace TurnikePortBul
 					Thread.Sleep(500);
 					byte[] gelen = new byte[sp.BytesToRead];
 					sp.Read(gelen, 0, sp.BytesToRead);
-					if (gelen != new byte[] { 0x45, 0x52, 0x52, 0x01, 0x02, 0x0D })
-					{
-						Console.WriteLine("ok");
-					}
+					Console.WriteLine(ByteArrayToString(gelen));
 				}
 				
 
 			}
+		}
+		public static string ByteArrayToString(byte[] ba)
+		{
+			StringBuilder hex = new StringBuilder(ba.Length * 2);
+			foreach (byte b in ba)
+				hex.AppendFormat("{0:x2}", b);
+			return hex.ToString();
 		}
 	}
 }

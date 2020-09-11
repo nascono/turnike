@@ -5,3 +5,9 @@ C:\Users\AAAO\source\repos\TurnikePortBul\TurnikePortBul\obj\Debug\TurnikePortBu
 C:\Users\AAAO\source\repos\TurnikePortBul\TurnikePortBul\obj\Debug\TurnikePortBul.csproj.CoreCompileInputs.cache
 C:\Users\AAAO\source\repos\TurnikePortBul\TurnikePortBul\obj\Debug\TurnikePortBul.exe
 C:\Users\AAAO\source\repos\TurnikePortBul\TurnikePortBul\obj\Debug\TurnikePortBul.pdb
+C:\Users\EV\Documents\GitHub\turnike\TurnikePortBul\TurnikePortBul\bin\Debug\TurnikePortBul.exe.config
+C:\Users\EV\Documents\GitHub\turnike\TurnikePortBul\TurnikePortBul\bin\Debug\TurnikePortBul.exe
+C:\Users\EV\Documents\GitHub\turnike\TurnikePortBul\TurnikePortBul\bin\Debug\TurnikePortBul.pdb
+C:\Users\EV\Documents\GitHub\turnike\TurnikePortBul\TurnikePortBul\obj\Debug\TurnikePortBul.csprojAssemblyReference.cache
+C:\Users\EV\Documents\GitHub\turnike\TurnikePortBul\TurnikePortBul\obj\Debug\TurnikePortBul.exe
+C:\Users\EV\Documents\GitHub\turnike\TurnikePortBul\TurnikePortBul\obj\Debug\TurnikePortBul.pdb
