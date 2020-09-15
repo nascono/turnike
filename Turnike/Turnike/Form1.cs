@@ -23,7 +23,7 @@ namespace Turnike
 			
 		}
 		Logger logger = new Logger();
-		private float PictureHeight = 170f;
+		private float PictureHeight = 150f;
 		private int ItemMargin = 5;
 		List<SerialPort> girisportlari = new List<SerialPort>();
 		List<SerialPort> cikisportlari = new List<SerialPort>();
@@ -73,7 +73,7 @@ namespace Turnike
 
 			e.Graphics.FillRectangle(new SolidBrush(renk), Rectangle.Round(layout_rect));
 			e.Graphics.DrawString(txt, new Font("Times New Roman", 24f), new SolidBrush(e.ForeColor), layout_rect);
-			if (lst.Items.Count == 6)
+			if (lst.Items.Count == 5)
 			{
 				lst.Items.RemoveAt(0);
 			}
@@ -84,10 +84,7 @@ namespace Turnike
 			e.ItemHeight = (int)(PictureHeight + 2 * ItemMargin);
 		}
 
-		private void Button1_Click(object sender, EventArgs e)
-		{
-			listBox1.Items.Add(new object[] { new Ogrenci("Ömer Fatih", 253, "asdfeghj", 2000, null,true,"asd") ,Color.Yellow,""});
-		}
+		Dictionary<SerialPort, string> sonlar = new Dictionary<SerialPort, string>();
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
@@ -115,7 +112,7 @@ namespace Turnike
 
 
 			listBox1.Width = this.Width - 50;
-			listBox1.Height = this.Height - 100;
+			listBox1.Height = this.Height - 10;
 		}
 
 
