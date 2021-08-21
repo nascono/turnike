@@ -27,6 +27,11 @@ namespace Turnike
 		private int ItemMargin = 5;
 		List<SerialPort> girisportlari = new List<SerialPort>();
 		List<SerialPort> cikisportlari = new List<SerialPort>();
+		int giris_saati = 10;
+		int giris_dakikasi = 0;
+		int cikis_saati = 15;
+		int cikis_dakikasi = 0;
+		bool bir_sonraki_idari_izinli = false;
 
 		Ogrenci[] ogenciler;
 
@@ -97,19 +102,34 @@ namespace Turnike
 			string[] cikis_portlari_txts = srr.ReadToEnd().Split(';');
 			srr.Close();
 			srr.Dispose();
+			if (!File.Exists("saatler.txt")){ File.Create("saatler.txt").Dispose(); File.WriteAllText("saatler.txt", "10:00@15:00"); }
+			string saatlertxt = File.ReadAllText("saatler.txt");
+			giris_saati = Convert.ToInt32(saatlertxt.Split('@')[0].Split(':')[0]);
+			giris_dakikasi = Convert.ToInt32(saatlertxt.Split('@')[0].Split(':')[1]);
+			cikis_saati = Convert.ToInt32(saatlertxt.Split('@')[1].Split(':')[0]);
+			cikis_dakikasi = Convert.ToInt32(saatlertxt.Split('@')[1].Split(':')[1]);
+
 			foreach (string item in giris_portlari_txts)
 			{
-				sonokunanlar.Add(item, "");
-				girisportlari.Add(new SerialPort(item, 9600));
-				girisportlari[girisportlari.Count - 1].Open();
-				girisportlari[girisportlari.Count - 1].DataReceived += giris_geldi;
+				if (item != "")
+				{
+					sonokunanlar.Add(item, "");
+					girisportlari.Add(new SerialPort(item, 9600));
+					girisportlari[girisportlari.Count - 1].Open();
+					girisportlari[girisportlari.Count - 1].DataReceived += giris_geldi;
+				}
+				
 			}
 			foreach (string item in cikis_portlari_txts)
 			{
-				sonokunanlar.Add(item, "");
-				cikisportlari.Add(new SerialPort(item, 9600));
-				cikisportlari[cikisportlari.Count - 1].Open();
-				cikisportlari[cikisportlari.Count - 1].DataReceived += cikis_geldi;
+				if (item != "")
+				{
+					sonokunanlar.Add(item, "");
+					cikisportlari.Add(new SerialPort(item, 9600));
+					cikisportlari[cikisportlari.Count - 1].Open();
+					cikisportlari[cikisportlari.Count - 1].DataReceived += cikis_geldi;
+				}
+				
 			}
 			ogenciler = new Ogrenci().ogrencileri_getir();
 
@@ -137,7 +157,7 @@ namespace Turnike
 					if (bulunanlar.Length > 0)
 					{
 						Ogrenci ogrencim = bulunanlar[0];
-						DateTime gec_zamani = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 9, 0, 0, 0);
+						DateTime gec_zamani = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, giris_saati, giris_dakikasi, 0, 0);
 						if (DateTime.Compare(DateTime.Now, gec_zamani) < 0)
 						{
 							logger.new_log(new Log(ogrencim, "Giriş Yapıldı"));
@@ -178,7 +198,7 @@ namespace Turnike
 					if (bulunanlar.Length > 0)
 					{
 						Ogrenci ogrencim = bulunanlar[0];
-						DateTime cikis_zamani = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 50, 0, 0);
+						DateTime cikis_zamani = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, cikis_saati, cikis_dakikasi, 0, 0);
 						if (DateTime.Compare(DateTime.Now, cikis_zamani) >= 0)
 						{
 							logger.new_log(new Log(ogrencim, "Çıkış Yapıldı"));
@@ -192,6 +212,13 @@ namespace Turnike
 								logger.new_log(new Log(ogrencim, "İzinli Çıkış Yaptı(Yetkili)"));
 								sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
 								listBox1.Items.Add(new object[] { ogrencim, Color.LightGreen, "İzinli Çıkış Yaptı(Yetkili)" });
+							}
+							else if(bir_sonraki_idari_izinli)
+							{
+								bir_sonraki_idari_izinli = false;
+								logger.new_log(new Log(ogrencim, "İzinli Çıkış Yaptı(İdareden İzinli)"));
+								sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
+								listBox1.Items.Add(new object[] { ogrencim, Color.LightGreen, "İzinli Çıkış Yaptı(İdareden İzinli)" });
 							}
 							else
 							{
@@ -240,5 +267,22 @@ namespace Turnike
 				hex.AppendFormat("{0:x2}", b);
 			return hex.ToString();
 		}
+
+		private void ListBox1_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.D1)
+			{
+				bir_sonraki_idari_izinli = true;
+				Thread th = new Thread(new ThreadStart(bir_sonraki_idari_izinli_sil));
+				th.Start();
+			}
+			
+		}
+		void bir_sonraki_idari_izinli_sil()
+		{
+			Thread.Sleep(10000);
+			bir_sonraki_idari_izinli = false;
+		}
+
 	}
 }

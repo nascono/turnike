@@ -37,12 +37,13 @@
 			// 
 			this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
 			this.listBox1.FormattingEnabled = true;
-			this.listBox1.Location = new System.Drawing.Point(12, 12);
+			this.listBox1.Location = new System.Drawing.Point(12, 22);
 			this.listBox1.Name = "listBox1";
 			this.listBox1.Size = new System.Drawing.Size(568, 303);
 			this.listBox1.TabIndex = 0;
 			this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBox1_DrawItem);
 			this.listBox1.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.ListBox1_MeasureItem);
+			this.listBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListBox1_KeyDown);
 			// 
 			// timer1
 			// 

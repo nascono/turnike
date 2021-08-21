@@ -97,10 +97,12 @@ namespace TurnikeClasses
 		public Logger()
 		{
 			string file_name = DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year.ToString() + ".log";
-			string file_full_name = "logs/" + DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year.ToString() + ".log";
+			string file_full_name = (new Ogrenci()).konum+"logs/" + DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year.ToString() + ".log";
 			this.file_full_name = file_full_name;
 			this.file_name = file_name;
-			if (!Directory.Exists("logs")) { Directory.CreateDirectory("logs"); }
+
+			if (!Directory.Exists((new Ogrenci()).konum + "logs")) { Directory.CreateDirectory((new Ogrenci()).konum + "logs"); }
+
 			if (!File.Exists(file_full_name))
 			{
 				File.Create(file_full_name).Dispose();
@@ -127,6 +129,7 @@ namespace TurnikeClasses
 			sw.Flush();
 			sw.Close();
 			sw.Dispose();
+			loglar.Clear();
 		}
 
 

@@ -29,3 +29,14 @@ C:\Users\EV\Documents\GitHub\turnike\Turnike\Turnike\bin\Debug\Turnike.exe.confi
 C:\Users\EV\Documents\GitHub\turnike\Turnike\Turnike\bin\Debug\Turnike.exe
 C:\Users\EV\Documents\GitHub\turnike\Turnike\Turnike\bin\Debug\Turnike.pdb
 C:\Users\EV\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.csproj.CopyComplete
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\bin\Debug\Turnike.exe.config
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\bin\Debug\Turnike.exe
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\bin\Debug\Turnike.pdb
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.csprojAssemblyReference.cache
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.Form1.resources
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.Properties.Resources.resources
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.csproj.GenerateResource.cache
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.csproj.CoreCompileInputs.cache
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.csproj.CopyComplete
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.exe
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.pdb
