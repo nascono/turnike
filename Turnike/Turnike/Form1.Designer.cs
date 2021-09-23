@@ -31,6 +31,7 @@
 			this.components = new System.ComponentModel.Container();
 			this.listBox1 = new System.Windows.Forms.ListBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.timer2 = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
 			// listBox1
@@ -51,6 +52,12 @@
 			this.timer1.Interval = 300;
 			this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
 			// 
+			// timer2
+			// 
+			this.timer2.Enabled = true;
+			this.timer2.Interval = 60000;
+			this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -69,6 +76,7 @@
 
 		private System.Windows.Forms.ListBox listBox1;
 		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.Timer timer2;
 	}
 }
 

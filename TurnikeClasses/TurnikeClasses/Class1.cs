@@ -114,7 +114,11 @@ namespace TurnikeClasses
 			}
 
 		}
-
+		public Logger(string thefile)
+		{
+			file_full_name = thefile;
+			file_name = thefile.Substring(thefile.LastIndexOf('\\') + 1);
+		}
 		public void new_log(Log my_log)
 		{
 			StreamReader sr = new StreamReader(file_full_name);

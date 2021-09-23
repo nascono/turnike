@@ -1,0 +1,12 @@
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\bin\Debug\OgrenciOlusuturucu.exe.config
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\bin\Debug\OgrenciOlusuturucu.exe
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\bin\Debug\OgrenciOlusuturucu.pdb
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\obj\Debug\OgrenciOlusuturucu.csprojAssemblyReference.cache
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\obj\Debug\OgrenciOlusuturucu.csproj.CoreCompileInputs.cache
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\obj\Debug\OgrenciOlusuturucu.csproj.CopyComplete
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\obj\Debug\OgrenciOlusuturucu.exe
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\obj\Debug\OgrenciOlusuturucu.pdb
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\bin\Debug\TurnikeClasses.dll
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\bin\Debug\TurnikeClasses.pdb
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\bin\Debug\PdfToImages.dll
+C:\Users\AAAO\source\repos\OgrenciOlusuturucu\OgrenciOlusuturucu\bin\Debug\PdfToImages.pdb

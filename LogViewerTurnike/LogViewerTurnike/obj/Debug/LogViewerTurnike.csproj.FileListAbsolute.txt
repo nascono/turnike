@@ -1,0 +1,12 @@
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\bin\Debug\LogViewerTurnike.exe.config
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\bin\Debug\LogViewerTurnike.exe
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\bin\Debug\LogViewerTurnike.pdb
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\obj\Debug\LogViewerTurnike.csprojAssemblyReference.cache
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\obj\Debug\LogViewerTurnike.Properties.Resources.resources
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\obj\Debug\LogViewerTurnike.csproj.GenerateResource.cache
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\obj\Debug\LogViewerTurnike.csproj.CoreCompileInputs.cache
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\obj\Debug\LogViewerTurnike.exe
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\obj\Debug\LogViewerTurnike.pdb
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\bin\Debug\TurnikeClasses.dll
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\bin\Debug\TurnikeClasses.pdb
+C:\Users\AAAO\source\repos\LogViewerTurnike\LogViewerTurnike\obj\Debug\LogViewerTurnike.csproj.CopyComplete

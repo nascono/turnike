@@ -169,6 +169,7 @@ namespace Turnike
 							logger.new_log(new Log(ogrencim, "Geç Giriş Yapıldı"));
 							sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
 							listBox1.Items.Add(new object[] { ogrencim, Color.DarkGreen, "Geç Giriş Yapıldı" });
+							gec_giris_sms_gonder(ogrencim);
 						}
 					}
 					else
@@ -219,6 +220,7 @@ namespace Turnike
 								logger.new_log(new Log(ogrencim, "İzinli Çıkış Yaptı(İdareden İzinli)"));
 								sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
 								listBox1.Items.Add(new object[] { ogrencim, Color.LightGreen, "İzinli Çıkış Yaptı(İdareden İzinli)" });
+								idari_izinli_sms_gonder(ogrencim);
 							}
 							else
 							{
@@ -284,5 +286,46 @@ namespace Turnike
 			bir_sonraki_idari_izinli = false;
 		}
 
+		private void Timer2_Tick(object sender, EventArgs e)
+		{
+			//gelmeyen sms
+			if (DateTime.Now.Hour == giris_saati && DateTime.Now.Minute == giris_dakikasi)
+			{
+				Ogrenci[] gelenler = (from x in logger.olayin_loglarini_bul("Giriş Yapıldı") select x.ogrenci).ToArray();
+				Ogrenci[] gelmeyenler = (from x in ogenciler where !gelenler.Contains(x) select x).ToArray();
+				Thread gelmeyenler_smslerini_gonder_th = new Thread(() => gelmeyenler_smslerini_gonder(gelmeyenler));
+				gelmeyenler_smslerini_gonder_th.Start();
+			}
+		}
+		void gelmeyenler_smslerini_gonder(Ogrenci[] gec_gelenler)
+		{
+			foreach (var item in gec_gelenler)
+			{
+				string telno = item.telno;
+				if (telno !="")
+				{
+					string mesaj = "Öğrenciniz " + item.tam_ad + " " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " tarihi ile okula giriş yapmamış bulunmaktadır. Bilgilerinize arz olunur. Çamlıca Anadolu Lisesi Müdürlüğü";
+					
+				}
+			}
+		}
+		void gec_giris_sms_gonder(Ogrenci gec_giren)
+		{
+			string telno = gec_giren.telno;
+			if (telno != "")
+			{
+				string mesaj = "Öğrenciniz " + gec_giren.tam_ad + " " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " tarihi ile okula geç giriş yapmıştır. Bilgilerinize arz olunur. Çamlıca Anadolu Lisesi Müdürlüğü";
+
+			}
+		}
+		void idari_izinli_sms_gonder(Ogrenci izinli)
+		{
+			string telno = izinli.telno;
+			if (telno != "")
+			{
+				string mesaj = "Öğrenciniz " + izinli.tam_ad + " " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " tarihi ile okuldan idari izinle çıkış yapmıştır. Bilgilerinize arz olunur. Çamlıca Anadolu Lisesi Müdürlüğü";
+
+			}
+		}
 	}
 }
