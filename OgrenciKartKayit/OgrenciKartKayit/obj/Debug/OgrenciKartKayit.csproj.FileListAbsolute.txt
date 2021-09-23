@@ -12,3 +12,16 @@ C:\Users\AAAO\source\repos\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKa
 C:\Users\AAAO\source\repos\OgrenciKartKayit\OgrenciKartKayit\bin\Debug\TurnikeClasses.dll
 C:\Users\AAAO\source\repos\OgrenciKartKayit\OgrenciKartKayit\bin\Debug\TurnikeClasses.pdb
 C:\Users\AAAO\source\repos\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.csproj.CopyComplete
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\bin\Debug\OgrenciKartKayit.exe.config
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\bin\Debug\OgrenciKartKayit.exe
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\bin\Debug\OgrenciKartKayit.pdb
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\bin\Debug\TurnikeClasses.pdb
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.csprojAssemblyReference.cache
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.Form1.resources
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.Form2.resources
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.Properties.Resources.resources
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.csproj.GenerateResource.cache
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.csproj.CoreCompileInputs.cache
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.csproj.CopyComplete
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.exe
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciKartKayit\OgrenciKartKayit\obj\Debug\OgrenciKartKayit.pdb

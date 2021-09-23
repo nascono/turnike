@@ -40,14 +40,35 @@ namespace OgrenciKartKayit
 
 		private void TextBox1_TextChanged(object sender, EventArgs e)
 		{
-			if (textBox1.Text.Length==8)
+			
+		}
+
+		private void TextBox1_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
 			{
 				Ogrenci ogrencim = ogrenciler[ogrenci_indis];
-				ogrenciler[ogrenci_indis] = new Ogrenci(ogrencim.tam_ad, ogrencim.numara, textBox1.Text, ogrencim.mezuniyet_tarihi, ogrencim.foto, ogrencim.izin, ogrencim.telno);
+				int girilen = 0;
+				if (!int.TryParse(textBox1.Text,out girilen))
+				{
+					MessageBox.Show("Kart Yanlış");
+					this.Close();
+					return;
+					
+				}
+				string hexValue = (girilen).ToString("X");
+
+				hexValue = hexValue[6].ToString() + hexValue[7].ToString()
+				+ hexValue[4].ToString() + hexValue[5].ToString()
+				+ hexValue[2].ToString() + hexValue[3].ToString()
+				+ hexValue[0].ToString() + hexValue[1].ToString();
+				
+				
+
+				ogrenciler[ogrenci_indis] = new Ogrenci(ogrencim.tam_ad, ogrencim.numara, hexValue, ogrencim.mezuniyet_tarihi, ogrencim.foto, ogrencim.izin, ogrencim.telno);
 				(new Ogrenci()).ogrencileri_kaydet(ogrenciler);
 				this.Close();
 			}
 		}
-
 	}
 }

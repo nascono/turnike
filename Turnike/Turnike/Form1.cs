@@ -175,7 +175,7 @@ namespace Turnike
 					else
 					{
 
-						listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart \n" + ByteArrayToString(ogenciler[0].card_number_with_footer_and_header) + "\n" + ByteArrayToString(gelen) + "\n" + gelen.SequenceEqual(ogenciler[0].card_number_with_footer_and_header).ToString(), 0, "", 0, null, false, "asd"), Color.Red, "" });
+						listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart \n" + ByteArrayToString(gelen) + "\n" + ByteArrayToString(gelen) + "\n" + gelen.SequenceEqual(gelen).ToString(), 0, "", 0, null, false, "asd"), Color.Red, "" });
 					}
 				}
 				sonokunanlar[sp.PortName] = ByteArrayToString(gelen);
