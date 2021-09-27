@@ -14,6 +14,7 @@ namespace OgrenciYap
 	public partial class Form2 : Form
 	{
 		public Ogrenci ogrenci;
+		public bool degistimi = false;
 		public Form2(Ogrenci ogrenci)
 		{
 			this.ogrenci = ogrenci;
@@ -33,6 +34,7 @@ namespace OgrenciYap
 		}
 		private void Button3_Click(object sender, EventArgs e)
 		{
+			degistimi = true;
 			ogrenci = new Ogrenci(textBox1.Text,Convert.ToInt32(textBox2.Text),textBox3.Text,Convert.ToInt32(textBox4.Text),pictureBox1.Image,radioButton1.Checked,textBox5.Text);
 			this.Close();
 		}

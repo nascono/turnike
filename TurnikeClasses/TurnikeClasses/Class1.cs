@@ -59,6 +59,19 @@ namespace TurnikeClasses
 			sr.Close();
 			sr.Dispose();
 		}
+		public Ogrenci(string gelen_konum)
+		{
+			if (!File.Exists("location.conf"))
+			{
+				File.Create("location.conf").Dispose();
+			}
+			File.WriteAllText("location.conf", gelen_konum + "\\");
+			StreamReader sr = new StreamReader("location.conf");
+			konum = sr.ReadToEnd();
+			sr.Close();
+			sr.Dispose();
+		}
+
 		public Ogrenci[] ogrencileri_getir()
 		{
 			if (File.Exists(konum+ "ogrenciler.ofas"))

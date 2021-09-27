@@ -65,9 +65,13 @@ namespace OgrenciYap
 			{
 				Form2 form2 = new Form2(ogrenciler[listView1.SelectedIndices[0]]);
 				form2.ShowDialog();
-				ogrenciler[listView1.SelectedIndices[0]] = form2.ogrenci;
-				(new Ogrenci()).ogrencileri_kaydet(ogrenciler);
-				yenile();
+				if (form2.degistimi)
+				{
+					ogrenciler[listView1.SelectedIndices[0]] = form2.ogrenci;
+					(new Ogrenci()).ogrencileri_kaydet(ogrenciler);
+					yenile();
+				}
+				
 			}
 			
 		}

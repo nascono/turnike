@@ -12,6 +12,7 @@ using System.IO.Ports;
 using System.Runtime.Serialization.Formatters.Binary;
 using TurnikeClasses;
 using System.Threading;
+using System.Net.Http;
 
 namespace Turnike
 {
@@ -305,7 +306,8 @@ namespace Turnike
 				if (telno !="")
 				{
 					string mesaj = "Öğrenciniz " + item.tam_ad + " " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " tarihi ile okula giriş yapmamış bulunmaktadır. Bilgilerinize arz olunur. Çamlıca Anadolu Lisesi Müdürlüğü";
-					
+					sms(telno, mesaj);
+
 				}
 			}
 		}
@@ -315,7 +317,7 @@ namespace Turnike
 			if (telno != "")
 			{
 				string mesaj = "Öğrenciniz " + gec_giren.tam_ad + " " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " tarihi ile okula geç giriş yapmıştır. Bilgilerinize arz olunur. Çamlıca Anadolu Lisesi Müdürlüğü";
-
+				sms(telno, mesaj);
 			}
 		}
 		void idari_izinli_sms_gonder(Ogrenci izinli)
@@ -324,8 +326,16 @@ namespace Turnike
 			if (telno != "")
 			{
 				string mesaj = "Öğrenciniz " + izinli.tam_ad + " " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " tarihi ile okuldan idari izinle çıkış yapmıştır. Bilgilerinize arz olunur. Çamlıca Anadolu Lisesi Müdürlüğü";
-
+				sms(telno, mesaj);
 			}
 		}
+		async void sms(string telno,string mesaj)
+		{
+			HttpClient client = new HttpClient();
+			string urll = "https://smartaudiogetter.com/smsdeneme.php?no="+telno+"&mesaj="+mesaj;
+			await client.GetStringAsync(urll);
+			client.Dispose();
+		}
+
 	}
 }
