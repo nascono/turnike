@@ -40,3 +40,4 @@ C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.csproj.
 C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.csproj.CopyComplete
 C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.exe
 C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.pdb
+C:\Users\AAAO\Documents\GitHub\turnike\Turnike\Turnike\obj\Debug\Turnike.Form2.resources

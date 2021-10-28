@@ -35,6 +35,8 @@
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -78,7 +80,7 @@
 			// 
 			// textBox1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(525, 730);
+			this.textBox1.Location = new System.Drawing.Point(543, 867);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(100, 20);
 			this.textBox1.TabIndex = 4;
@@ -98,18 +100,40 @@
 			// label5
 			// 
 			this.label5.Font = new System.Drawing.Font("Cooper Black", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(159, 639);
+			this.label5.Location = new System.Drawing.Point(159, 633);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(399, 40);
 			this.label5.TabIndex = 6;
 			this.label5.Text = "Kartı OKUT";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
+			// label6
+			// 
+			this.label6.Font = new System.Drawing.Font("Cooper Black", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.Location = new System.Drawing.Point(159, 687);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(399, 40);
+			this.label6.TabIndex = 7;
+			this.label6.Text = "Kartı OKUT";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// label7
+			// 
+			this.label7.Font = new System.Drawing.Font("Cooper Black", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label7.Location = new System.Drawing.Point(795, 9);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(399, 40);
+			this.label7.TabIndex = 8;
+			this.label7.Text = "Kartı OKUT";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
 			// Form2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(714, 712);
+			this.ClientSize = new System.Drawing.Size(750, 736);
+			this.Controls.Add(this.label7);
+			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.textBox1);
@@ -135,5 +159,7 @@
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label label7;
 	}
 }

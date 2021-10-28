@@ -35,6 +35,8 @@ namespace OgrenciKartKayit
 			pictureBox1.Image = new Bitmap(ogrenciler[ogrenci_indis].foto,399,513);
 			label4.Text = ogrenciler[ogrenci_indis].tam_ad;
 			label5.Text = ogrenciler[ogrenci_indis].numara.ToString();
+			label6.Text ="Mezuniyet Yılı: "+ ogrenciler[ogrenci_indis].mezuniyet_tarihi.ToString();
+			label7.Text = ogrenciler[ogrenci_indis].kart_no;
 			textBox1.Focus();
 		}
 
@@ -48,8 +50,8 @@ namespace OgrenciKartKayit
 			if (e.KeyCode == Keys.Enter)
 			{
 				Ogrenci ogrencim = ogrenciler[ogrenci_indis];
-				int girilen = 0;
-				if (!int.TryParse(textBox1.Text,out girilen))
+				Int64 girilen = 0;
+				if (!Int64.TryParse(textBox1.Text,out girilen))
 				{
 					MessageBox.Show("Kart Yanlış");
 					this.Close();
@@ -57,18 +59,22 @@ namespace OgrenciKartKayit
 					
 				}
 				string hexValue = (girilen).ToString("X");
-
+				while (hexValue.Length <8)
+				{
+					hexValue = "0" + hexValue;
+				}
 				hexValue = hexValue[6].ToString() + hexValue[7].ToString()
 				+ hexValue[4].ToString() + hexValue[5].ToString()
 				+ hexValue[2].ToString() + hexValue[3].ToString()
 				+ hexValue[0].ToString() + hexValue[1].ToString();
-				
-				
+
+
 
 				ogrenciler[ogrenci_indis] = new Ogrenci(ogrencim.tam_ad, ogrencim.numara, hexValue, ogrencim.mezuniyet_tarihi, ogrencim.foto, ogrencim.izin, ogrencim.telno);
 				(new Ogrenci()).ogrencileri_kaydet(ogrenciler);
 				this.Close();
 			}
 		}
+		
 	}
 }

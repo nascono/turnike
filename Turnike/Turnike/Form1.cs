@@ -13,7 +13,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using TurnikeClasses;
 using System.Threading;
 using System.Net.Http;
-
+using System.Web;
 namespace Turnike
 {
 	public partial class Form1 : Form
@@ -95,6 +95,7 @@ namespace Turnike
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			listBox1.Focus();
 			StreamReader sr = new StreamReader("giris_portlari.txt");
 			string[] giris_portlari_txts = sr.ReadToEnd().Split(';');
 			sr.Close();
@@ -114,10 +115,12 @@ namespace Turnike
 			{
 				if (item != "")
 				{
-					sonokunanlar.Add(item, "");
+					
 					girisportlari.Add(new SerialPort(item, 9600));
+					sonokunanlar.Add(girisportlari[girisportlari.Count - 1].PortName, "");
 					girisportlari[girisportlari.Count - 1].Open();
 					girisportlari[girisportlari.Count - 1].DataReceived += giris_geldi;
+					
 				}
 				
 			}
@@ -125,10 +128,12 @@ namespace Turnike
 			{
 				if (item != "")
 				{
-					sonokunanlar.Add(item, "");
+					
 					cikisportlari.Add(new SerialPort(item, 9600));
+					sonokunanlar.Add(cikisportlari[cikisportlari.Count - 1].PortName, "");
 					cikisportlari[cikisportlari.Count - 1].Open();
 					cikisportlari[cikisportlari.Count - 1].DataReceived += cikis_geldi;
+					
 				}
 				
 			}
@@ -143,44 +148,51 @@ namespace Turnike
 		
 		private void giris_geldi(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
 		{
-			
-			SerialPort sp = sender as SerialPort;
-			byte[] gelen;
-			gelen = new byte[sp.BytesToRead];
-			sp.Read(gelen, 0, sp.BytesToRead);
-
-
-			if (gelen.Length>4)
+			try
 			{
-				if (!gelen.SequenceEqual(new byte[] { 0x45, 0x52, 0x52, 0x01, 0x02, 0x0D }) && gelen.Length == 16 && ByteArrayToString(gelen) != sonokunanlar[sp.PortName])
+				SerialPort sp = sender as SerialPort;
+				byte[] gelen;
+				gelen = new byte[sp.BytesToRead];
+				sp.Read(gelen, 0, sp.BytesToRead);
+
+
+				if (gelen.Length > 4)
 				{
-					Ogrenci[] bulunanlar = (from x in ogenciler where x.card_number_with_footer_and_header.SequenceEqual(gelen) select x).ToArray();
-					if (bulunanlar.Length > 0)
+					if (!gelen.SequenceEqual(new byte[] { 0x45, 0x52, 0x52, 0x01, 0x02, 0x0D }) && gelen.Length == 16 && ByteArrayToString(gelen) != sonokunanlar[sp.PortName])
 					{
-						Ogrenci ogrencim = bulunanlar[0];
-						DateTime gec_zamani = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, giris_saati, giris_dakikasi, 0, 0);
-						if (DateTime.Compare(DateTime.Now, gec_zamani) < 0)
+						sonokunanlar[sp.PortName] = ByteArrayToString(gelen);
+						Ogrenci[] bulunanlar = (from x in ogenciler where x.card_number_with_footer_and_header.SequenceEqual(gelen) select x).ToArray();
+						if (bulunanlar.Length > 0)
 						{
-							logger.new_log(new Log(ogrencim, "Giriş Yapıldı"));
-							sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
-							listBox1.Items.Add(new object[] { ogrencim, Color.Green, "Giriş Yapıldı" });
+							Ogrenci ogrencim = bulunanlar[0];
+							DateTime gec_zamani = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, giris_saati, giris_dakikasi, 0, 0);
+							if (DateTime.Compare(DateTime.Now, gec_zamani) < 0)
+							{
+								logger.new_log(new Log(ogrencim, "Giriş Yapıldı"));
+								sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
+								listBox1.Items.Add(new object[] { ogrencim, Color.Green, "Giriş Yapıldı" });
+							}
+							else
+							{
+								logger.new_log(new Log(ogrencim, "Geç Giriş Yapıldı"));
+								sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
+								listBox1.Items.Add(new object[] { ogrencim, Color.DarkGreen, "Geç Giriş Yapıldı" });
+								gec_giris_sms_gonder(ogrencim);
+							}
 						}
 						else
 						{
-							logger.new_log(new Log(ogrencim, "Geç Giriş Yapıldı"));
-							sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
-							listBox1.Items.Add(new object[] { ogrencim, Color.DarkGreen, "Geç Giriş Yapıldı" });
-							gec_giris_sms_gonder(ogrencim);
+							listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart \n" + ByteArrayToString(gelen) + "\n" + ByteArrayToString(gelen) + "\n" + gelen.SequenceEqual(gelen).ToString(), 0, "", 0, null, false, "asd"), Color.Red, "" });
 						}
 					}
-					else
-					{
 
-						listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart \n" + ByteArrayToString(gelen) + "\n" + ByteArrayToString(gelen) + "\n" + gelen.SequenceEqual(gelen).ToString(), 0, "", 0, null, false, "asd"), Color.Red, "" });
-					}
 				}
-				sonokunanlar[sp.PortName] = ByteArrayToString(gelen);
 			}
+			catch
+			{
+
+			}
+			
 			
 			
 
@@ -189,66 +201,68 @@ namespace Turnike
 		string bir_onceki_cikis = "";
 		private void cikis_geldi(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
 		{
-			SerialPort sp = sender as SerialPort;
-			byte[] gelen = new byte[sp.BytesToRead];
-			sp.Read(gelen, 0, sp.BytesToRead);
-			if (gelen.Length>4)
+			try
 			{
-				if (!gelen.SequenceEqual(new byte[] { 0x45, 0x52, 0x52, 0x01, 0x02, 0x0D }) && gelen.Length == 16 && ByteArrayToString(gelen) != sonokunanlar[sp.PortName])
+				SerialPort sp = sender as SerialPort;
+				byte[] gelen = new byte[sp.BytesToRead];
+				sp.Read(gelen, 0, sp.BytesToRead);
+				if (gelen.Length > 4)
 				{
-					Ogrenci[] bulunanlar = (from x in ogenciler where x.card_number_with_footer_and_header.SequenceEqual(gelen) select x).ToArray();
-					if (bulunanlar.Length > 0)
+					if (!gelen.SequenceEqual(new byte[] { 0x45, 0x52, 0x52, 0x01, 0x02, 0x0D }) && gelen.Length == 16 && ByteArrayToString(gelen) != sonokunanlar[sp.PortName])
 					{
-						Ogrenci ogrencim = bulunanlar[0];
-						DateTime cikis_zamani = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, cikis_saati, cikis_dakikasi, 0, 0);
-						if (DateTime.Compare(DateTime.Now, cikis_zamani) >= 0)
+						sonokunanlar[sp.PortName] = ByteArrayToString(gelen);
+						Ogrenci[] bulunanlar = (from x in ogenciler where x.card_number_with_footer_and_header.SequenceEqual(gelen) select x).ToArray();
+						if (bulunanlar.Length > 0)
 						{
-							logger.new_log(new Log(ogrencim, "Çıkış Yapıldı"));
-							sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
-							listBox1.Items.Add(new object[] { ogrencim, Color.Green, "Çıkış Yapıldı" });
-						}
-						else
-						{
-							if (ogrencim.izin)
+							Ogrenci ogrencim = bulunanlar[0];
+							DateTime cikis_zamani = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, cikis_saati, cikis_dakikasi, 0, 0);
+							if (DateTime.Compare(DateTime.Now, cikis_zamani) >= 0)
 							{
-								logger.new_log(new Log(ogrencim, "İzinli Çıkış Yaptı(Yetkili)"));
+								logger.new_log(new Log(ogrencim, "Çıkış Yapıldı"));
 								sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
-								listBox1.Items.Add(new object[] { ogrencim, Color.LightGreen, "İzinli Çıkış Yaptı(Yetkili)" });
-							}
-							else if(bir_sonraki_idari_izinli)
-							{
-								bir_sonraki_idari_izinli = false;
-								logger.new_log(new Log(ogrencim, "İzinli Çıkış Yaptı(İdareden İzinli)"));
-								sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
-								listBox1.Items.Add(new object[] { ogrencim, Color.LightGreen, "İzinli Çıkış Yaptı(İdareden İzinli)" });
-								idari_izinli_sms_gonder(ogrencim);
+								listBox1.Items.Add(new object[] { ogrencim, Color.Green, "Çıkış Yapıldı" });
 							}
 							else
 							{
-								logger.new_log(new Log(ogrencim, "Çıkmaya Çalıştı Ama Çıkamadı"));
-								listBox1.Items.Add(new object[] { ogrencim, Color.Red, "İzin Yok" });
+								if (ogrencim.izin)
+								{
+									logger.new_log(new Log(ogrencim, "İzinli Çıkış Yaptı(Yetkili)"));
+									sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
+									listBox1.Items.Add(new object[] { ogrencim, Color.LightGreen, "İzinli Çıkış Yaptı(Yetkili)" });
+								}
+								else if (bir_sonraki_idari_izinli)
+								{
+									bir_sonraki_idari_izinli = false;
+									logger.new_log(new Log(ogrencim, "İzinli Çıkış Yaptı(İdareden İzinli)"));
+									sp.Write(new byte[] { 0x52, 0xC8 }, 0, 2);
+									listBox1.Items.Add(new object[] { ogrencim, Color.LightGreen, "İzinli Çıkış Yaptı(İdareden İzinli)" });
+									idari_izinli_sms_gonder(ogrencim);
+								}
+								else
+								{
+									logger.new_log(new Log(ogrencim, "Çıkmaya Çalıştı Ama Çıkamadı"));
+									listBox1.Items.Add(new object[] { ogrencim, Color.Red, "İzin Yok" });
+								}
 							}
+
+						}
+						else
+						{
+							listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart", 0, "", 0, null, false, "asd"), Color.Red, "", "asd" });
 						}
 
 					}
-					else
-					{
-						listBox1.Items.Add(new object[] { new Ogrenci("Tanımsız Kart", 0, "", 0, null, false, "asd"), Color.Red, "", "asd" });
-					}
-					sonokunanlar[sp.PortName] = ByteArrayToString(gelen);
 				}
 			}
+			catch 
+			{
+
+			}
+			
 			
 
 		}
-		void sleep() 
-		{
-			long baslangic = DateTime.Now.Ticks;
-			while (DateTime.Now.Ticks-baslangic<TimeSpan.TicksPerSecond*1)
-			{
-				Application.DoEvents();
-			}
-		}
+
 		private void Timer1_Tick(object sender, EventArgs e)
 		{
 			byte[] yazilcak = {0x02,0xff,0x96,0x04,0x0b,0x36,0x34,0x03};
@@ -275,11 +289,62 @@ namespace Turnike
 		{
 			if (e.KeyCode == Keys.D1)
 			{
+				son_girisleri_sil();
 				bir_sonraki_idari_izinli = true;
+				
 				Thread th = new Thread(new ThreadStart(bir_sonraki_idari_izinli_sil));
 				th.Start();
 			}
-			
+			if (e.KeyCode == Keys.D3)
+			{
+				Form2 form2 = new Form2();
+				form2.ShowDialog();
+				int gelenno = 0;
+				if (!int.TryParse(form2.no, out gelenno))
+				{
+					return;
+				}
+				Ogrenci[] bulunanlar = (from x in ogenciler where x.numara==gelenno select x).ToArray();
+
+				if (bulunanlar.Length > 0)
+				{
+					Ogrenci ogrencim = bulunanlar[0];
+					DateTime gec_zamani = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, giris_saati, giris_dakikasi, 0, 0);
+					if (DateTime.Compare(DateTime.Now, gec_zamani) < 0)
+					{
+						logger.new_log(new Log(ogrencim, "Giriş Yapıldı"));
+						girisportlari[0].Write(new byte[] { 0x52, 0xC8 }, 0, 2);
+						listBox1.Items.Add(new object[] { ogrencim, Color.Green, "Giriş Yapıldı" });
+					}
+					else
+					{
+						logger.new_log(new Log(ogrencim, "Geç Giriş Yapıldı"));
+						girisportlari[0].Write(new byte[] { 0x52, 0xC8 }, 0, 2);
+						listBox1.Items.Add(new object[] { ogrencim, Color.DarkGreen, "Geç Giriş Yapıldı" });
+						gec_giris_sms_gonder(ogrencim);
+					}
+				}
+
+			}
+			if (e.KeyCode==Keys.D8)
+			{
+				son_girisleri_sil();
+				girisportlari[0].Write(new byte[] { 0x52, 0xC8 }, 0, 2);
+			}
+			if (e.KeyCode == Keys.D9)
+			{
+				son_girisleri_sil();
+				cikisportlari[0].Write(new byte[] { 0x52, 0xC8 }, 0, 2);
+			}
+
+		}
+		void son_girisleri_sil()
+		{
+			List<string> keyList = new List<string>(sonokunanlar.Keys);
+			foreach (string item in keyList)
+			{
+				sonokunanlar[item] = "";
+			}
 		}
 		void bir_sonraki_idari_izinli_sil()
 		{
@@ -293,7 +358,8 @@ namespace Turnike
 			if (DateTime.Now.Hour == giris_saati && DateTime.Now.Minute == giris_dakikasi)
 			{
 				Ogrenci[] gelenler = (from x in logger.olayin_loglarini_bul("Giriş Yapıldı") select x.ogrenci).ToArray();
-				Ogrenci[] gelmeyenler = (from x in ogenciler where !gelenler.Contains(x) select x).ToArray();
+				int[] gelenler_nolar = (from x in gelenler select x.numara).ToArray();
+				Ogrenci[] gelmeyenler = (from x in ogenciler where !gelenler_nolar.Contains(x.numara) select x).ToArray();
 				Thread gelmeyenler_smslerini_gonder_th = new Thread(() => gelmeyenler_smslerini_gonder(gelmeyenler));
 				gelmeyenler_smslerini_gonder_th.Start();
 			}
@@ -303,7 +369,7 @@ namespace Turnike
 			foreach (var item in gec_gelenler)
 			{
 				string telno = item.telno;
-				if (telno !="")
+				if (telno !="" && Char.IsDigit(telno[0]))
 				{
 					string mesaj = "Öğrenciniz " + item.tam_ad + " " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " tarihi ile okula giriş yapmamış bulunmaktadır. Bilgilerinize arz olunur. Çamlıca Anadolu Lisesi Müdürlüğü";
 					sms(telno, mesaj);
@@ -314,7 +380,7 @@ namespace Turnike
 		void gec_giris_sms_gonder(Ogrenci gec_giren)
 		{
 			string telno = gec_giren.telno;
-			if (telno != "")
+			if (telno != "" && Char.IsDigit(telno[0]))
 			{
 				string mesaj = "Öğrenciniz " + gec_giren.tam_ad + " " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " tarihi ile okula geç giriş yapmıştır. Bilgilerinize arz olunur. Çamlıca Anadolu Lisesi Müdürlüğü";
 				sms(telno, mesaj);
@@ -323,7 +389,7 @@ namespace Turnike
 		void idari_izinli_sms_gonder(Ogrenci izinli)
 		{
 			string telno = izinli.telno;
-			if (telno != "")
+			if (telno != "" && Char.IsDigit(telno[0]))
 			{
 				string mesaj = "Öğrenciniz " + izinli.tam_ad + " " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " tarihi ile okuldan idari izinle çıkış yapmıştır. Bilgilerinize arz olunur. Çamlıca Anadolu Lisesi Müdürlüğü";
 				sms(telno, mesaj);
@@ -331,10 +397,19 @@ namespace Turnike
 		}
 		async void sms(string telno,string mesaj)
 		{
-			HttpClient client = new HttpClient();
-			string urll = "https://smartaudiogetter.com/smsdeneme.php?no="+telno+"&mesaj="+mesaj;
-			await client.GetStringAsync(urll);
-			client.Dispose();
+			try
+			{
+				HttpClient client = new HttpClient();
+				string theurl = "https://api.iletimerkezi.com/v1/send-sms/get/?username=5375681048&password=974068&text=" + mesaj + "&receipents=" + telno.ToString() + "&sender=CAMLICAANDL";
+				//string urll = "https://smartaudiogetter.com/smsdeneme.php?no="+telno+"&mesaj="+mesaj;
+				await client.GetStringAsync(theurl);
+				client.Dispose();
+			}
+			catch 
+			{
+
+			}
+			
 		}
 
 	}

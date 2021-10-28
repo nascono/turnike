@@ -11,3 +11,4 @@ C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYa
 C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.exe
 C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.pdb
 C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.EminMisin.resources
+C:\Users\AAAO\Documents\GitHub\turnike\OgrenciYap\OgrenciYap\obj\Debug\OgrenciYap.Form3.resources

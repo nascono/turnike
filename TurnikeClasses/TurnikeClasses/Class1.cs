@@ -43,10 +43,7 @@ namespace TurnikeClasses
 			{
 				File.Create("location.conf").Dispose();
 			}
-			StreamReader sr = new StreamReader("location.conf");
-			konum = sr.ReadToEnd();
-			sr.Close();
-			sr.Dispose();
+			konum = File.ReadAllText("location.conf");
 		}
 		public Ogrenci()
 		{
@@ -54,10 +51,8 @@ namespace TurnikeClasses
 			{
 				File.Create("location.conf").Dispose();
 			}
-			StreamReader sr = new StreamReader("location.conf");
-			konum = sr.ReadToEnd();
-			sr.Close();
-			sr.Dispose();
+			
+			konum = File.ReadAllText("location.conf");
 		}
 		public Ogrenci(string gelen_konum)
 		{
@@ -66,20 +61,14 @@ namespace TurnikeClasses
 				File.Create("location.conf").Dispose();
 			}
 			File.WriteAllText("location.conf", gelen_konum + "\\");
-			StreamReader sr = new StreamReader("location.conf");
-			konum = sr.ReadToEnd();
-			sr.Close();
-			sr.Dispose();
+			konum = File.ReadAllText("location.conf");
 		}
 
 		public Ogrenci[] ogrencileri_getir()
 		{
 			if (File.Exists(konum+ "ogrenciler.ofas"))
 			{
-				StreamReader sr = new StreamReader(konum + "ogrenciler.ofas");
-				byte[] arrBytes = Convert.FromBase64String(sr.ReadLine());
-				sr.Close();
-				sr.Dispose();
+				byte[] arrBytes = Convert.FromBase64String(File.ReadAllText(konum + "ogrenciler.ofas"));
 				Ogrenci[] obj = (Ogrenci[])seri.ByteArrayToObject(arrBytes);
 				return obj;
 			}
@@ -89,11 +78,8 @@ namespace TurnikeClasses
 		public void ogrencileri_kaydet(Ogrenci[] ogrenciler)
 		{
 			if (!File.Exists(konum+"ogrenciler.ofas")) { File.Create(konum+"ogrenciler.ofas").Dispose(); }
-			StreamWriter sw = new StreamWriter(konum+"ogrenciler.ofas");
-			sw.WriteLine(Convert.ToBase64String(seri.ObjectToByteArray(ogrenciler)));
-			sw.Flush();
-			sw.Close();
-			sw.Dispose();
+			File.WriteAllText(konum + "ogrenciler.ofas", Convert.ToBase64String(seri.ObjectToByteArray(ogrenciler)));
+
 		}
 
 
@@ -119,11 +105,7 @@ namespace TurnikeClasses
 			if (!File.Exists(file_full_name))
 			{
 				File.Create(file_full_name).Dispose();
-				StreamWriter sw = new StreamWriter(file_full_name);
-				sw.WriteLine(Convert.ToBase64String(seri.ObjectToByteArray(new List<Log>())));
-				sw.Flush();
-				sw.Close();
-				sw.Dispose();
+				File.WriteAllText(file_full_name, Convert.ToBase64String(seri.ObjectToByteArray(new List<Log>())));
 			}
 
 		}
@@ -134,52 +116,34 @@ namespace TurnikeClasses
 		}
 		public void new_log(Log my_log)
 		{
-			StreamReader sr = new StreamReader(file_full_name);
-			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(sr.ReadLine()));
-			sr.Close();
-			sr.Dispose();
-
+			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(File.ReadAllText(file_full_name)));
 			loglar.Add(my_log);
-
-			StreamWriter sw = new StreamWriter(file_full_name);
-			sw.WriteLine(Convert.ToBase64String(seri.ObjectToByteArray(loglar)));
-			sw.Flush();
-			sw.Close();
-			sw.Dispose();
+			File.WriteAllText(file_full_name, Convert.ToBase64String(seri.ObjectToByteArray(loglar)));
 			loglar.Clear();
 		}
 
 
 		public Log[] ogrencinin_loglarini_bul(Ogrenci ogrencim)
 		{
-			StreamReader sr = new StreamReader(file_full_name);
-			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(sr.ReadLine()));
-			sr.Close();
-			sr.Dispose();
+			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(File.ReadAllText(file_full_name)));
 			return (from x in loglar where x.ogrenci == ogrencim select x).ToArray();
 		}
+
 		public Log[] olayin_loglarini_bul(string log)
 		{
-			StreamReader sr = new StreamReader(file_full_name);
-			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(sr.ReadLine()));
-			sr.Close();
-			sr.Dispose();
+			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(File.ReadAllText(file_full_name)));
 			return (from x in loglar where x.olay == log select x).ToArray();
 		}
+
 		public Log[] tum_loglari_getir()
 		{
-			StreamReader sr = new StreamReader(file_full_name);
-			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(sr.ReadLine()));
-			sr.Close();
-			sr.Dispose();
+			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(File.ReadAllText(file_full_name)));
 			return loglar.ToArray();
 		}
+
 		public Log[] ogrencinin_olayli_loglarini_bul(Ogrenci ogrencim, string olayim)
 		{
-			StreamReader sr = new StreamReader(file_full_name);
-			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(sr.ReadLine()));
-			sr.Close();
-			sr.Dispose();
+			List<Log> loglar = (List<Log>)seri.ByteArrayToObject(Convert.FromBase64String(File.ReadAllText(file_full_name)));
 			return (from x in loglar where x.ogrenci == ogrencim && x.olay == olayim select x).ToArray();
 		}
 
