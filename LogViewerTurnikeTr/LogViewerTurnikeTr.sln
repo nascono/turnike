@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogViewerTurnikeTr", "LogViewerTurnikeTr\LogViewerTurnikeTr.csproj", "{AA94C633-A0EC-4A62-8394-628B3FA6C90E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA94C633-A0EC-4A62-8394-628B3FA6C90E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA94C633-A0EC-4A62-8394-628B3FA6C90E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA94C633-A0EC-4A62-8394-628B3FA6C90E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA94C633-A0EC-4A62-8394-628B3FA6C90E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2C88592-507A-402E-968E-7FAC22AB75A3}
+	EndGlobalSection
+EndGlobal

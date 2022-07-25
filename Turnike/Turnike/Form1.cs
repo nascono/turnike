@@ -399,11 +399,11 @@ namespace Turnike
 		{
 			try
 			{
-				HttpClient client = new HttpClient();
+				/*HttpClient client = new HttpClient();
 				string theurl = "https://api.iletimerkezi.com/v1/send-sms/get/?username=5375681048&password=974068&text=" + mesaj + "&receipents=" + telno.ToString() + "&sender=CAMLICAANDL";
 				//string urll = "https://smartaudiogetter.com/smsdeneme.php?no="+telno+"&mesaj="+mesaj;
 				await client.GetStringAsync(theurl);
-				client.Dispose();
+				client.Dispose();*/
 			}
 			catch 
 			{
